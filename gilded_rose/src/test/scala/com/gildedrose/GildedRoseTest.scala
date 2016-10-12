@@ -72,4 +72,18 @@ class GildedRoseTest extends FlatSpec with Matchers {
     app.updateQuality()
     (app.items(0).quality) should equal (0)
   }
+
+  it should "decrease the quality of conjured items by 2 before sell by date" in {
+    var items = Array[Item](new Item("Conjured Water", 1, 20))
+    val app = new GildedRose(items)
+    app.updateQuality()
+    (app.items(0).quality) should equal (18)
+  }
+
+  it should "decrease the quality of conjured items by 4 after sell by date" in {
+    var items = Array[Item](new Item("Conjured Water", 0, 20))
+    val app = new GildedRose(items)
+    app.updateQuality()
+    (app.items(0).quality) should equal (16)
+  }
 }
